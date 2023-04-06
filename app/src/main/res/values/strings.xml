@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ViewBinding</string>
+    <string name="introdu_o_ao_android">Introdução ao Android</string>
+    <string name="email_input">Email</string>
+    <string name="password_inout">Password</string>
+    <string name="sign_in_button">Entrar</string>
+    <string name="onboarding_text">Entrar</string>
+    <string name="onboarding_description">Insira suas informações</string>
+    <string name="remember">Lembrar</string>
+</resources>
