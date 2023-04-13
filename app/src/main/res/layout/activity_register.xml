@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
     android:paddingHorizontal="@dimen/default_margin"
-    tools:context=".MainActivity">
+    >
 
     <ImageView
         android:id="@+id/imageView"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/onboarding_text"
-        android:text="@string/onboarding_text"
+        android:text="Registrar"
         android:textSize="32sp"
         android:layout_marginTop="@dimen/default_margin"
         android:textFontWeight="700"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-    />
+        />
     <TextView
         android:id="@+id/onboarding_text_description"
         android:text="@string/onboarding_description"
@@ -43,15 +43,15 @@
         />
 
 
-<!--    <View-->
-<!--        android:id="@+id/container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:layout_marginStart="@dimen/default_margindp"-->
-<!--        android:layout_marginEnd="@dimen/default_margindp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageView" />-->
+    <!--    <View-->
+    <!--        android:id="@+id/container"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="200dp"-->
+    <!--        android:layout_marginStart="@dimen/default_margindp"-->
+    <!--        android:layout_marginEnd="@dimen/default_margindp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/imageView" />-->
 
     <EditText
         android:id="@+id/email_input"
@@ -75,23 +75,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_input" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/remember"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/remember"
-        app:layout_constraintTop_toBottomOf="@+id/password_input"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/regNow"
+    <EditText
+        android:id="@+id/confirm_password_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/remember"
+        android:layout_marginTop="@dimen/default_margin"
+        android:hint="Confirme sua senha"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_input" />
+
+    <TextView
+        android:id="@+id/logNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_password_input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Ir para registro"
+        android:text="Ir para login"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"/>
@@ -109,7 +111,7 @@
         android:textColor="@color/white"
         android:text="@string/sign_in_button"
         app:cornerRadius="8dp"
-    />
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

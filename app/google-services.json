@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "133742360058",
+    "project_id": "motoacademyapp",
+    "storage_bucket": "motoacademyapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133742360058:android:2745d3d05b7e4fedebe043",
+        "android_client_info": {
+          "package_name": "com.motoacademy.norton.viewbinding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133742360058-mm3u7ifg3esmm6gj7o67nabuj5h4mttr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqcIKCB1VyjJrzjgjs3PgBdDA-imqf54k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133742360058-mm3u7ifg3esmm6gj7o67nabuj5h4mttr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
