@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent intent;
                 intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
