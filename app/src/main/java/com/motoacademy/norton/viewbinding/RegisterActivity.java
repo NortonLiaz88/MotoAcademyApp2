@@ -81,6 +81,9 @@ public class RegisterActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("SUCCESS", "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    signIn(email, password);
+
+
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w("FAILED", "createUserWithEmail:failure", task.getException());
@@ -92,5 +95,31 @@ public class RegisterActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    private void signIn( String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("SUCCESS", "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent;
+                            intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.i("CREDENTIALS", email + password);
+                            Log.w("FAILED", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        binding.progressCircular.setVisibility(View.GONE);
+
+                    }
+                });
     }
 }

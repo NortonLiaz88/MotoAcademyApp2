@@ -3,7 +3,10 @@ package com.motoacademy.norton.viewbinding;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +23,9 @@ import com.motoacademy.norton.viewbinding.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private FirebaseAuth mAuth;
+
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        loginPreferences = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
         setContentView(view);
         setupNavigationButton();
         setupNavigateRegister();
+        verifyCredentials();
     }
 
     @Override
@@ -65,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+
+                                    if(binding.remember.isChecked()) {
+                                        saveCredentials(email, password);
+                                    }
+                                    else {
+                                        flushCredentials();
+                                    }
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("SUCCESS", "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
@@ -97,5 +114,29 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void saveCredentials(String email, String password) {
+        loginPrefsEditor.putBoolean("saveLogin", true);
+        loginPrefsEditor.putString("email", email);
+        loginPrefsEditor.putString("password", password);
+        loginPrefsEditor.commit();
+    }
+
+    private void flushCredentials() {
+        loginPrefsEditor.clear();
+        loginPrefsEditor.commit();
+    }
+
+    private void verifyCredentials() {
+
+        Boolean saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        Log.i("SAVE LOGIN", String.valueOf(saveLogin));
+
+        if (saveLogin == true) {
+            binding.emailInput.setText(loginPreferences.getString("email", ""));
+            binding.passwordInput.setText(loginPreferences.getString("password", ""));
+            binding.remember.setChecked(true);
+        }
     }
 }
