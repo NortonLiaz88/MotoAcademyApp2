@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         setupLoggoutButton();
+        setupFormNavigation();
     }
 
     private void setupLoggoutButton() {
@@ -31,6 +33,18 @@ public class HomeActivity extends AppCompatActivity {
                 intent = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+    }
+
+    private void setupFormNavigation() {
+        binding.formNavigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("DEBUG", "NAVIGATE");
+                Intent intent;
+                intent = new Intent(HomeActivity.this, FormActivity.class);
+                startActivity(intent);
             }
         });
     }
