@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     private DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, 4);
     }
 
     private static final String DATABASE_NAME = "person.db";
@@ -47,8 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COLUMN_FNAME + " TEXT," +
                 COLUMN_LNAME + " TEXT," +
-                COLUMN_USERID + "TEXT" +
-                ")";
+                COLUMN_USERID + " TEXT);";
 
         sqLiteDatabase.execSQL(CREATE_NAMES_TABLE);
     }
@@ -104,27 +103,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Person fetchPerson(String id) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.beginTransaction();
+        SQLiteDatabase db = this.getWritableDatabase();
         try {
-            Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME+" WHERE " + COLUMN_USERID + " = " + id + "", null);
-            if(cursor != null) {
-                cursor.moveToFirst();
-                int userIdIndex = cursor.getColumnIndex(COLUMN_USERID);
-                String userId = cursor.getString(userIdIndex);
+            Log.i("ID", ""+id);
+//            Cursor cursor = db.rawQuery("SELECT * FROM tbl_names WHERE userId = " + id, null);
+            Cursor newCursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
-                int nameIndex = cursor.getColumnIndexOrThrow(COLUMN_FNAME);
-                String firstName = cursor.getString(nameIndex);
+            String currentId = (newCursor.getString(0));
+            String fName = (newCursor.getString(1));
+            String lName = (newCursor.getString(2));
 
-                int lastNameIndex = cursor.getColumnIndexOrThrow(COLUMN_LNAME);
-                String lastName = cursor.getString(lastNameIndex);
+            Log.i("PERSON", ""+currentId+fName+lName);
+
+
+            if(newCursor != null) {
+                newCursor.moveToFirst();
+                int userIdIndex = newCursor.getColumnIndex(COLUMN_USERID);
+                String userId = newCursor.getString(userIdIndex);
+
+                int nameIndex = newCursor.getColumnIndexOrThrow(COLUMN_FNAME);
+                String firstName = newCursor.getString(nameIndex);
+
+                int lastNameIndex = newCursor.getColumnIndexOrThrow(COLUMN_LNAME);
+                String lastName = newCursor.getString(lastNameIndex);
 
                 Person person = new Person(firstName, lastName, id);
                 return person;
             }
             return null;
         }catch (Exception e) {
-            Log.d("DB ERROR", "Error while trying to add person");
+            Log.d("DB ERROR", "Error while trying load person" + e);
         } finally {
             db.endTransaction();
         }

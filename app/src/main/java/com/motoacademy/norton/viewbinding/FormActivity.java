@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class FormActivity extends AppCompatActivity {
 
         db = DatabaseHelper.getInstance(FormActivity.this);
         setupSaveButton();
+        setupShowButton();
     }
 
     private void setupSaveButton() {
@@ -61,13 +63,23 @@ public class FormActivity extends AppCompatActivity {
         });
     }
 
+    private void setupShowButton() {
+        binding.btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPerson();
+            }
+        });
+    }
+
     private void showPerson() {
         binding.btnShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Person person = db.fetchPerson(currentUser.getUid());
-                binding.inputFirstName.setText(person.getFirstName());
-                binding.inputLastName.setText(person.getLastName());
+                Log.i("DB PERSON", ""+ person);
+//                binding.inputFirstName.setText(person.getFirstName());
+//                binding.inputLastName.setText(person.getLastName());
             }
         });
 
